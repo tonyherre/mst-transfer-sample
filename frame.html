@@ -1,0 +1,12 @@
+<script>
+  onmessage = async (m) => {
+    console.log("iframe got message ", m);
+    if (m.data.name == "port") {
+      forwardingWorker.port.postMessage({name: "port", port: m.data.port}, [m.data.port]);
+    }
+  }
+  let forwardingWorker = new SharedWorker("shared-worker.js");
+  forwardingWorker.onerror = (m) => console.log("Worker error ", m);
+  forwardingWorker.port.onmessage = (m) => console.log("Worker message received ", m);
+  forwardingWorker.port.onerror = (m) => console.log("Worker port error  received ", m);
+</script>
