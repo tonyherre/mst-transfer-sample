@@ -10,7 +10,7 @@ onload = () => {
 let track;
 
 forwardingWorker.port.onmessage = async (m) => {
-  console.log("Got message: ", m);
+  console.log("Got message from worker: ", m);
 
   switch (m.data.name) {
   case "port":
