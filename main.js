@@ -7,6 +7,10 @@ startTrackBtn.disabled = true;
 let transferBtn = document.getElementById("transfer");
 transferBtn.disabled = true;
 
+const frameOrigin =
+  document.location.host == "localhost:8000" ? "http://localhost:8001" : "https://tonyherre.github.io/mst-transfer-sample";
+
+document.getElementById("subframe").src = frameOrigin + "/frame.html";
 
 function isTrackTransferSupported() {
   let track = document.createElement("canvas").captureStream().getTracks()[0];
@@ -32,7 +36,7 @@ onload = () => {
 function sendPort() {
   sendPortBtn.disabled = true;
   let frame = document.getElementById("subframe");
-  frame.contentWindow.postMessage({name:"port", port: channel.port2}, "http://localhost:8001", [channel.port2]);
+  frame.contentWindow.postMessage({name:"port", port: channel.port2}, frameOrigin, [channel.port2]);
   startTrackBtn.disabled = false;
 };
 
