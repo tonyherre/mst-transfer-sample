@@ -28,7 +28,9 @@ async function messagePortOnMessage(m) {
     statusMsg.innerText = "Received transferred track. Waiting to initialize...";
     track = m.data.track;
   
-    await new Promise(r => setTimeout(r, 1000));
+    let start = performance.now();
+    await track.applyConstraints();
+    console.log("Waited for " + (performance.now() - start) + "ms");
     let video = document.getElementById("videoel");
     video.srcObject = new MediaStream([track]);
     video.play();

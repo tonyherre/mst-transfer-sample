@@ -9,5 +9,9 @@ set -e
 python3 -m http.server 8000 &
 python3 -m http.server 8001 &
 
-# Run Chrome Canary with the necessary features enabled
-/Applications/Google\ Chrome\ Canary.app/Contents/MacOS/Google\ Chrome\ Canary --enable-features=MediaStreamTrackTransfer --enable-blink-features=MediaStreamTrackTransfer http://localhost:8000 http://localhost:8001/cross-origin-index.html
+
+if [ "$(uname)" == "Darwin" ]; then
+    /Applications/Google\ Chrome\ Canary.app/Contents/MacOS/Google\ Chrome\ Canary --enable-features=MediaStreamTrackTransfer --enable-blink-features=MediaStreamTrackTransfer http://localhost:8000 http://localhost:8001/cross-origin-index.html
+elif [ "$(expr substr $(uname -s) 1 5)" == "Linux" ]; then
+    google-chrome-canary --enable-features=MediaStreamTrackTransfer --enable-blink-features=MediaStreamTrackTransfer http://localhost:8000 http://localhost:8001/cross-origin-index.html
+fi

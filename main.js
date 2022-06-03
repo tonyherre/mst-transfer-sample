@@ -7,6 +7,28 @@ startTrackBtn.disabled = true;
 let transferBtn = document.getElementById("transfer");
 transferBtn.disabled = true;
 
+
+function isTrackTransferSupported() {
+  let track = document.createElement("canvas").captureStream().getTracks()[0];
+  let port = new MessageChannel().port1;
+  try {
+    port.postMessage({},[track]);
+  } catch(e) {
+    console.log("Transfer support check failed: ", e);
+    return false;
+  }
+  return true;
+}
+
+onload = () => {
+  if (!isTrackTransferSupported()) {
+    sendPortBtn.disabled = true;
+    window.statusMsg = document.getElementById("status");
+    statusMsg.innerText = "MediaStreamTrack Transfer is not supported by this browser.";
+  }
+};
+
+
 function sendPort() {
   sendPortBtn.disabled = true;
   let frame = document.getElementById("subframe");
