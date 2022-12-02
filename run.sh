@@ -11,7 +11,7 @@ python3 -m http.server 8001 &
 
 
 if [ "$(uname)" == "Darwin" ]; then
-    /Applications/Google\ Chrome\ Canary.app/Contents/MacOS/Google\ Chrome\ Canary --enable-features=MediaStreamTrackTransfer --enable-blink-features=MediaStreamTrackTransfer http://localhost:8000 http://localhost:8001/cross-origin-index.html
+    /Applications/Google\ Chrome\ Canary.app/Contents/MacOS/Google\ Chrome\ Canary --enable-features=MediaStreamTrackTransfer --enable-blink-features=MediaStreamTrackTransfer http://localhost:8000 http://localhost:8001/cross-origin-index.html --disable-blink-features=RegionCapture
 elif [ "$(expr substr $(uname -s) 1 5)" == "Linux" ]; then
     google-chrome-canary --enable-features=MediaStreamTrackTransfer --enable-blink-features=MediaStreamTrackTransfer http://localhost:8000 http://localhost:8001/cross-origin-index.html
 fi
