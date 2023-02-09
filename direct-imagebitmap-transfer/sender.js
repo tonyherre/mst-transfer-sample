@@ -9,18 +9,26 @@ onload = async () => {
 };
 
 sameOriginButton.onclick = async () => {
-  const child = window.open("receiver.html");
-  onmessage = () => sendBitmap(child);
+  openReceiver("receiver.html");
 };
 crossOriginButton.onclick = async () => {
-  const child = window.open("https://tonyherre.github.io/mst-transfer-sample/direct-imagebitmap-transfer/receiver.html");
-  onmessage = () => sendBitmap(child);
+  const crossOriginUrl = (location.origin == "https://tonyherre.github.io" ? "https://x20web.corp.google.com/users/he/herre/www/cross-window-media-transfer/receiver.html" : "https://tonyherre.github.io/mst-transfer-sample/direct-imagebitmap-transfer/receiver.html");
+  openReceiver(crossOriginUrl);
 };
+
+function openReceiver(url) {
+  const child = window.open(url, '_blank', "width=800px,height=500px");
+  onmessage = () => sendBitmap(child);
+}
 
 async function sendBitmap(messagePort) {
   await streamPromise;
-  const imageBitmap = await createImageBitmap(videoEl);
-  messagePort.postMessage({image: imageBitmap}, "*", [imageBitmap]);
+  try {
+    const imageBitmap = await createImageBitmap(videoEl);
+    messagePort.postMessage({image: imageBitmap}, "*", [imageBitmap]);
+  } catch (e) {
+    console.log("Failed to send image", e);
+  }
 
   setTimeout(() => sendBitmap(messagePort), 0);
 }
