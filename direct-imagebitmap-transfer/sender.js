@@ -14,7 +14,7 @@ sameOriginButton.onclick = async () => {
 crossOriginButton.onclick = async () => {
   const internalPath = "https://herre.users.x20web.corp.google.com/www/window-to-window-transfer/direct-imagebitmap-transfer";
   const githubPath = "https://tonyherre.github.io/mst-transfer-sample/direct-imagebitmap-transfer";
-  const crossOriginUrl = (location.origin == "https://tonyherre.github.io" ? internalPath : githubPath) + "/reciever.html";
+  const crossOriginUrl = (location.origin == "https://tonyherre.github.io" ? internalPath : githubPath) + "/receiver.html";
   openReceiver(crossOriginUrl);
 };
 
