@@ -12,7 +12,9 @@ sameOriginButton.onclick = async () => {
   openReceiver("receiver.html");
 };
 crossOriginButton.onclick = async () => {
-  const crossOriginUrl = (location.origin == "https://tonyherre.github.io" ? "https://x20web.corp.google.com/users/he/herre/www/cross-window-media-transfer/receiver.html" : "https://tonyherre.github.io/mst-transfer-sample/direct-imagebitmap-transfer/receiver.html");
+  const internalPath = "https://herre.users.x20web.corp.google.com/www/window-to-window-transfer/direct-imagebitmap-transfer";
+  const githubPath = "https://tonyherre.github.io/mst-transfer-sample/direct-imagebitmap-transfer";
+  const crossOriginUrl = (location.origin == "https://tonyherre.github.io" ? internalPath : githubPath) + "/reciever.html";
   openReceiver(crossOriginUrl);
 };
 
